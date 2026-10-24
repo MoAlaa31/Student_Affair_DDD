@@ -1,0 +1,27 @@
+<Solution>
+  <Folder Name="/Modules/" />
+  <Folder Name="/Modules/Classrooms/">
+    <Project Path="Student_Affair_DDD.Modules.Classrooms.Application/Student_Affair_DDD.Modules.Classrooms.Application.csproj" />
+    <Project Path="Student_Affair_DDD.Modules.Classrooms.Domain/Student_Affair_DDD.Modules.Classrooms.Domain.csproj" />
+    <Project Path="Student_Affair_DDD.Modules.Classrooms.Persistence/Student_Affair_DDD.Modules.Classrooms.Persistence.csproj" />
+    <Project Path="Student_Affair_DDD.Modules.Classrooms.Shared/Student_Affair_DDD.Modules.Classrooms.Shared.csproj" />
+    <Project Path="Student_Affair_DDD.Modules.Classrooms.Web/Student_Affair_DDD.Modules.Classrooms.Web.csproj" />
+  </Folder>
+  <Folder Name="/Modules/Students/">
+    <Project Path="Student_Affair_DDD.Modules.Students.Application/Student_Affair_DDD.Modules.Students.Application.csproj" />
+    <Project Path="Student_Affair_DDD.Modules.Students.Domain/Student_Affair_DDD.Modules.Students.Domain.csproj" />
+    <Project Path="Student_Affair_DDD.Modules.Students.Persistence/Student_Affair_DDD.Modules.Students.Persistence.csproj" />
+    <Project Path="Student_Affair_DDD.Modules.Students.Shared/Student_Affair_DDD.Modules.Students.Shared.csproj" Id="71390c30-311b-480b-a01a-91bba9f39d80" />
+    <Project Path="Student_Affair_DDD.Modules.Students.Web/Student_Affair_DDD.Modules.Students.Web.csproj" />
+  </Folder>
+  <Folder Name="/Modules/Teachers/">
+    <Project Path="Student_Affair_DDD.Modules.Teachers.Application/Student_Affair_DDD.Modules.Teachers.Application.csproj" />
+    <Project Path="Student_Affair_DDD.Modules.Teachers.Domain/Student_Affair_DDD.Modules.Teachers.Domain.csproj" />
+    <Project Path="Student_Affair_DDD.Modules.Teachers.Persistence/Student_Affair_DDD.Modules.Teachers.Persistence.csproj" />
+    <Project Path="Student_Affair_DDD.Modules.Teachers.Shared/Student_Affair_DDD.Modules.Teachers.Shared.csproj" />
+    <Project Path="Student_Affair_DDD.Modules.Teachers.Web/Student_Affair_DDD.Modules.Teachers.Web.csproj" />
+  </Folder>
+  <Project Path="Student_Affair_DDD.Contracts/Student_Affair_DDD.Contracts.csproj" />
+  <Project Path="Student_Affair_DDD.Host/Student_Affair_DDD.Host.csproj" />
+  <Project Path="Student_Affair_DDD.Web.Client/Student_Affair_DDD.Web.Client.csproj" />
+</Solution>

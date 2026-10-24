@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.13" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="10.0.13" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Student_Affair_DDD.Modules.Students.Application\Student_Affair_DDD.Modules.Students.Application.csproj" />
+    <ProjectReference Include="..\Student_Affair_DDD.Modules.Students.Persistence\Student_Affair_DDD.Modules.Students.Persistence.csproj" />
+    <ProjectReference Include="..\Student_Affair_DDD.Modules.Students.Web\Student_Affair_DDD.Modules.Students.Web.csproj" />
+    <ProjectReference Include="..\Student_Affair_DDD.Web.Client\Student_Affair_DDD.Web.Client.csproj" />
+    <ProjectReference Include="..\Student_Affair_DDD.Modules.Classrooms.Application\Student_Affair_DDD.Modules.Classrooms.Application.csproj" />
+    <ProjectReference Include="..\Student_Affair_DDD.Modules.Classrooms.Persistence\Student_Affair_DDD.Modules.Classrooms.Persistence.csproj" />
+    <ProjectReference Include="..\Student_Affair_DDD.Modules.Classrooms.Web\Student_Affair_DDD.Modules.Classrooms.Web.csproj" />
+    <ProjectReference Include="..\Student_Affair_DDD.Modules.Teachers.Application\Student_Affair_DDD.Modules.Teachers.Application.csproj" />
+    <ProjectReference Include="..\Student_Affair_DDD.Modules.Teachers.Persistence\Student_Affair_DDD.Modules.Teachers.Persistence.csproj" />
+    <ProjectReference Include="..\Student_Affair_DDD.Modules.Teachers.Web\Student_Affair_DDD.Modules.Teachers.Web.csproj" />
+    <ProjectReference Include="..\Student_Affair_DDD.Contracts\Student_Affair_DDD.Contracts.csproj" />
+  </ItemGroup>
+
+</Project>

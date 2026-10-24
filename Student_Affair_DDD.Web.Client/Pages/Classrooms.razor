@@ -1,0 +1,78 @@
+@page "/classrooms"
+@using Student_Affair_DDD.Modules.Classrooms.Shared.Abstractions
+@using Student_Affair_DDD.Modules.Classrooms.Shared.DTOs
+@inject IClassroomApi ClassroomApi
+
+<PageTitle>Classrooms</PageTitle>
+<h1>Classrooms</h1>
+
+<EditForm Model="createModel" OnValidSubmit="CreateAsync" class="row g-2 mb-4">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <div class="col"><InputText class="form-control" @bind-Value="createModel.Code" placeholder="Code" /></div>
+    <div class="col"><InputText class="form-control" @bind-Value="createModel.Building" placeholder="Building" /></div>
+    <div class="col"><InputText class="form-control" @bind-Value="createModel.RoomNumber" placeholder="Room" /></div>
+    <div class="col"><InputNumber class="form-control" @bind-Value="createModel.Capacity" /></div>
+    <div class="col"><button class="btn btn-primary" type="submit">Add classroom</button></div>
+</EditForm>
+
+@if (!string.IsNullOrWhiteSpace(error))
+{
+    <div class="alert alert-danger">@error</div>
+}
+@if (page is null)
+{
+    <p>Loading classrooms...</p>
+}
+else if (page.Items.Count == 0)
+{
+    <p>No classrooms found.</p>
+}
+else
+{
+    <table class="table">
+        <thead><tr><th>Code</th><th>Building</th><th>Room</th><th>Capacity</th><th>Active</th></tr></thead>
+        <tbody>
+            @foreach (var classroom in page.Items)
+            {
+                <tr><td>@classroom.Code</td><td>@classroom.Building</td><td>@classroom.RoomNumber</td><td>@classroom.Capacity</td><td>@classroom.IsActive</td></tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private readonly ClassroomQuery query = new();
+    private ClassroomCreateDto createModel = new();
+    private PagedClassrooms? page;
+    private string? error;
+
+    protected override async Task OnInitializedAsync() => await LoadAsync();
+
+    private async Task LoadAsync()
+    {
+        try
+        {
+            page = await ClassroomApi.GetPagedAsync(query);
+            error = null;
+        }
+        catch (Exception exception)
+        {
+            error = exception.Message;
+        }
+    }
+
+    private async Task CreateAsync()
+    {
+        try
+        {
+            await ClassroomApi.CreateAsync(createModel);
+            createModel = new ClassroomCreateDto();
+            await LoadAsync();
+        }
+        catch (Exception exception)
+        {
+            error = exception.Message;
+        }
+    }
+}

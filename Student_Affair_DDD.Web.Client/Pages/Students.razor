@@ -1,0 +1,74 @@
+@page "/students"
+
+@namespace BlazorAppServer
+
+<h3>Students</h3>
+
+@if (student is not null)
+{
+    <EditForm Model="@student" OnValidSubmit="@( async ()=> await HandleValidSubmit() )">
+
+        <ValidationSummary />
+
+        <div class="mb-3">
+            <label for="name" class="form-label"> Name:</label>
+            <InputText class="form-control" @bind-Value="@student.Name" placeholder="Enter your name" />
+            <ValidationMessage For="@(() => student.Name)" />
+        </div>
+        <div class="mb-3">
+            <label for="name" class="form-label">Mobile:</label>
+            <InputText class="form-control" @bind-Value="@student.Mobile" placeholder="Enter your modile" />
+            <ValidationMessage For="@(() => student.Mobile)" />
+        </div>
+
+        <div class="mb-3">
+            <label for="email" class="form-label">Email:</label>
+            <InputText type="email" class="form-control" @bind-Value="@student.Email" placeholder="Enter your email" />
+            <ValidationMessage For="@(() => student.Email)" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Age:</label>
+            <InputNumber class="form-control" @bind-Value="@student.Age" />
+            <ValidationMessage For="@(() => student.Age)" />
+        </div>
+
+        <ValidationSummary />
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="reset" class="btn btn-danger">Reset</button>
+        <button type="button" class="btn btn-warning" @onclick="@( ()=> Clear() )">Clear</button>
+    </EditForm>
+}
+<h1>Registered Students</h1>
+<div class="container mt-5">
+    <h2>Bootstrap Table</h2>
+    <table class="table table-striped table-bordered">
+        <thead class="table-dark">
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Mobile</th>
+                <th scope="col">Email</th>
+                <th scope="col">Age</th>
+                <th scope="col">Operations</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Student item in students ?? new())
+            {
+                <tr>
+                    <td scope="col">@item.Name</td>
+                    <td scope="col">@item.Mobile</td>
+                    <td scope="col">@item.Email</td>
+                    <td scope="col">@item.Age</td>
+                    <td scope="col">
+                        <a href="javascript:void(0)" @onclick="() => EditStudent(item)" class="m-1"><i class="bi bi-pencil-fill"></i> </a>
+                        <a href="javascript:void(0)" @onclick="() => ShowModal(item)" class="m-1"><i class="bi bi-trash3 text-danger "></i></a>
+                        <Modal @ref="modalComponent" Id="@Guid.NewGuid()" ModalTitle="delete" Message="are you sure" OnSave="() => DeleteStudent(item)" />
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>

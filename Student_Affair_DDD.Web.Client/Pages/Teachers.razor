@@ -1,0 +1,79 @@
+@page "/teachers"
+@using Student_Affair_DDD.Modules.Teachers.Shared.Abstractions
+@using Student_Affair_DDD.Modules.Teachers.Shared.DTOs
+@inject ITeacherApi TeacherApi
+
+<PageTitle>Teachers</PageTitle>
+<h1>Teachers</h1>
+
+<EditForm Model="createModel" OnValidSubmit="CreateAsync" class="row g-2 mb-4">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <div class="col"><InputText class="form-control" @bind-Value="createModel.EmployeeNumber" placeholder="Employee number" /></div>
+    <div class="col"><InputText class="form-control" @bind-Value="createModel.FirstName" placeholder="First name" /></div>
+    <div class="col"><InputText class="form-control" @bind-Value="createModel.LastName" placeholder="Last name" /></div>
+    <div class="col"><InputText class="form-control" @bind-Value="createModel.Email" placeholder="Email" /></div>
+    <div class="col"><InputText class="form-control" @bind-Value="createModel.Department" placeholder="Department" /></div>
+    <div class="col"><button class="btn btn-primary" type="submit">Add teacher</button></div>
+</EditForm>
+
+@if (!string.IsNullOrWhiteSpace(error))
+{
+    <div class="alert alert-danger">@error</div>
+}
+@if (page is null)
+{
+    <p>Loading teachers...</p>
+}
+else if (page.Items.Count == 0)
+{
+    <p>No teachers found.</p>
+}
+else
+{
+    <table class="table">
+        <thead><tr><th>Employee #</th><th>Name</th><th>Email</th><th>Department</th><th>Active</th></tr></thead>
+        <tbody>
+            @foreach (var teacher in page.Items)
+            {
+                <tr><td>@teacher.EmployeeNumber</td><td>@teacher.FullName</td><td>@teacher.Email</td><td>@teacher.Department</td><td>@teacher.IsActive</td></tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private readonly TeacherQuery query = new();
+    private TeacherCreateDto createModel = new();
+    private PagedTeachers? page;
+    private string? error;
+
+    protected override async Task OnInitializedAsync() => await LoadAsync();
+
+    private async Task LoadAsync()
+    {
+        try
+        {
+            page = await TeacherApi.GetPagedAsync(query);
+            error = null;
+        }
+        catch (Exception exception)
+        {
+            error = exception.Message;
+        }
+    }
+
+    private async Task CreateAsync()
+    {
+        try
+        {
+            await TeacherApi.CreateAsync(createModel);
+            createModel = new TeacherCreateDto();
+            await LoadAsync();
+        }
+        catch (Exception exception)
+        {
+            error = exception.Message;
+        }
+    }
+}

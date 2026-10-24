@@ -1,0 +1,49 @@
+@namespace Student_Affair_DDD.Web.Client
+@using Microsoft.AspNetCore.Components
+
+@if (isVisible)
+{
+    <div class="modal fade show d-block" id="@Id" tabindex="-1" role="dialog" aria-modal="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">@ModalTitle</h5>
+                    <button type="button" class="btn-close" aria-label="Close" @onclick="HideModal"></button>
+                </div>
+                <div class="modal-body">@Message</div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" @onclick="HideModal">Cancel</button>
+                    <button type="button" class="btn btn-danger" @onclick="SaveAsync">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-backdrop fade show"></div>
+}
+
+@code {
+    [Parameter] public Guid Id { get; set; }
+    [Parameter] public string ModalTitle { get; set; } = string.Empty;
+    [Parameter] public string Message { get; set; } = string.Empty;
+    [Parameter] public EventCallback OnSave { get; set; }
+
+    private bool isVisible;
+
+    public Task ShowModal()
+    {
+        isVisible = true;
+        return InvokeAsync(StateHasChanged);
+    }
+
+    private Task HideModal()
+    {
+        isVisible = false;
+        return InvokeAsync(StateHasChanged);
+    }
+
+    private async Task SaveAsync()
+    {
+        await OnSave.InvokeAsync();
+        isVisible = false;
+    }
+}
