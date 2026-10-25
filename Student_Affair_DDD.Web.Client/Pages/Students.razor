@@ -1,42 +1,95 @@
 @page "/students"
 
 @namespace BlazorAppServer
+@using Student_Affair_DDD.Modules.Students.Domain.Enums
+@using Student_Affair_DDD.Modules.Students.Shared.DTOs
+@using Student_Affair_DDD.Web.Client.Models
 
 <h3>Students</h3>
 
 @if (student is not null)
 {
-    <EditForm Model="@student" OnValidSubmit="@( async ()=> await HandleValidSubmit() )">
-
+    <EditForm Model="@student" OnValidSubmit="HandleValidSubmit">
+        <DataAnnotationsValidator />
         <ValidationSummary />
 
         <div class="mb-3">
-            <label for="name" class="form-label"> Name:</label>
-            <InputText class="form-control" @bind-Value="@student.Name" placeholder="Enter your name" />
-            <ValidationMessage For="@(() => student.Name)" />
+            <label for="firstName" class="form-label">First name:</label>
+            <InputText id="firstName" class="form-control" @bind-Value="student.FirstName" />
+            <ValidationMessage For="@(() => student.FirstName)" />
         </div>
         <div class="mb-3">
-            <label for="name" class="form-label">Mobile:</label>
-            <InputText class="form-control" @bind-Value="@student.Mobile" placeholder="Enter your modile" />
-            <ValidationMessage For="@(() => student.Mobile)" />
+            <label for="lastName" class="form-label">Last name:</label>
+            <InputText id="lastName" class="form-control" @bind-Value="student.LastName" />
+            <ValidationMessage For="@(() => student.LastName)" />
         </div>
-
+        <div class="mb-3">
+            <label for="studentNumber" class="form-label">Student number:</label>
+            <InputText id="studentNumber" class="form-control" @bind-Value="student.StudentNumber" disabled="@(student.Id != 0)" />
+            <ValidationMessage For="@(() => student.StudentNumber)" />
+        </div>
+        <div class="mb-3">
+            <label for="nationalId" class="form-label">National ID:</label>
+            <InputText id="nationalId" class="form-control" @bind-Value="student.NationalId" disabled="@(student.Id != 0)" />
+            <ValidationMessage For="@(() => student.NationalId)" />
+        </div>
         <div class="mb-3">
             <label for="email" class="form-label">Email:</label>
             <InputText type="email" class="form-control" @bind-Value="@student.Email" placeholder="Enter your email" />
             <ValidationMessage For="@(() => student.Email)" />
         </div>
-
         <div class="mb-3">
-            <label class="form-label">Age:</label>
-            <InputNumber class="form-control" @bind-Value="@student.Age" />
-            <ValidationMessage For="@(() => student.Age)" />
+            <label for="phoneNumber" class="form-label">Mobile:</label>
+            <InputText id="phoneNumber" class="form-control" @bind-Value="student.PhoneNumber" />
+            <ValidationMessage For="@(() => student.PhoneNumber)" />
+        </div>
+        <div class="mb-3">
+            <label for="dateOfBirth" class="form-label">Date of birth:</label>
+            <InputDate id="dateOfBirth" class="form-control" @bind-Value="student.DateOfBirth" />
+            <ValidationMessage For="@(() => student.DateOfBirth)" />
+        </div>
+        <div class="mb-3">
+            <label for="gender" class="form-label">Gender:</label>
+            <InputSelect id="gender" class="form-select" @bind-Value="student.Gender">
+                @foreach (var value in Enum.GetValues<Gender>())
+                {
+                    <option value="@value">@value</option>
+                }
+            </InputSelect>
+            <ValidationMessage For="@(() => student.Gender)" />
+        </div>
+        <div class="mb-3">
+            <label for="level" class="form-label">Academic level:</label>
+            <InputSelect id="level" class="form-select" @bind-Value="student.Level">
+                @foreach (var value in Enum.GetValues<AcademicLevel>())
+                {
+                    <option value="@value">@value</option>
+                }
+            </InputSelect>
+            <ValidationMessage For="@(() => student.Level)" />
+        </div>
+        <div class="mb-3">
+            <label for="department" class="form-label">Department:</label>
+            <InputText id="department" class="form-control" @bind-Value="student.Department" />
+            <ValidationMessage For="@(() => student.Department)" />
+        </div>
+        <div class="mb-3">
+            <label for="gpa" class="form-label">GPA:</label>
+            <InputNumber id="gpa" class="form-control" min="0" max="4" step="0.01" @bind-Value="student.Gpa" />
+            <ValidationMessage For="@(() => student.Gpa)" />
+        </div>
+        <div class="mb-3">
+            <label for="enrollmentDate" class="form-label">Enrollment date:</label>
+            <InputDate id="enrollmentDate" class="form-control" @bind-Value="student.EnrollmentDate" />
+            <ValidationMessage For="@(() => student.EnrollmentDate)" />
+        </div>
+        <div class="form-check mb-3">
+            <InputCheckbox id="isActive" class="form-check-input" @bind-Value="student.IsActive" />
+            <label for="isActive" class="form-check-label">Active</label>
         </div>
 
-        <ValidationSummary />
-
         <button type="submit" class="btn btn-primary">Submit</button>
-        <button type="reset" class="btn btn-danger">Reset</button>
+        <button type="button" class="btn btn-danger" @onclick="Clear">Reset</button>
         <button type="button" class="btn btn-warning" @onclick="@( ()=> Clear() )">Clear</button>
     </EditForm>
 }
@@ -49,22 +102,22 @@
                 <th scope="col">Name</th>
                 <th scope="col">Mobile</th>
                 <th scope="col">Email</th>
-                <th scope="col">Age</th>
+                <th scope="col">Student number</th>
                 <th scope="col">Operations</th>
             </tr>
         </thead>
         <tbody>
-            @foreach (Student item in students ?? new())
+            @foreach (StudentDto item in students)
             {
                 <tr>
-                    <td scope="col">@item.Name</td>
-                    <td scope="col">@item.Mobile</td>
+                    <td scope="col">@item.FullName</td>
+                    <td scope="col">@item.PhoneNumber</td>
                     <td scope="col">@item.Email</td>
-                    <td scope="col">@item.Age</td>
+                    <td scope="col">@item.StudentNumber</td>
                     <td scope="col">
                         <a href="javascript:void(0)" @onclick="() => EditStudent(item)" class="m-1"><i class="bi bi-pencil-fill"></i> </a>
                         <a href="javascript:void(0)" @onclick="() => ShowModal(item)" class="m-1"><i class="bi bi-trash3 text-danger "></i></a>
-                        <Modal @ref="modalComponent" Id="@Guid.NewGuid()" ModalTitle="delete" Message="are you sure" OnSave="() => DeleteStudent(item)" />
+                        <Modal @ref="modalComponent" Id="@Guid.NewGuid()" ModalTitle="delete" Message="are you sure" OnSave="DeleteStudent" />
                     </td>
                 </tr>
             }

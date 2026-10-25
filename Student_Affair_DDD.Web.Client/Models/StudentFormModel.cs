@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using Student_Affair_DDD.Modules.Students.Domain.Enums;
+using Student_Affair_DDD.Modules.Students.Shared.DTOs;
 
 namespace Student_Affair_DDD.Web.Client.Models;
 
@@ -7,6 +8,7 @@ namespace Student_Affair_DDD.Web.Client.Models;
 public sealed class StudentFormModel : IValidatableObject
 {
     public int Id { get; set; }
+    public string FullName => $"{FirstName} {LastName}".Trim();
 
     [Required, StringLength(100, MinimumLength = 2)]
     public string FirstName { get; set; } = string.Empty;
@@ -46,6 +48,57 @@ public sealed class StudentFormModel : IValidatableObject
     public DateOnly EnrollmentDate { get; set; } = DateOnly.FromDateTime(DateTime.Today);
 
     public bool IsActive { get; set; } = true;
+
+    public static StudentFormModel FromDto(StudentDto dto) => new()
+    {
+        Id = dto.Id,
+        FirstName = dto.FirstName,
+        LastName = dto.LastName,
+        StudentNumber = dto.StudentNumber,
+        NationalId = dto.NationalId,
+        Email = dto.Email,
+        PhoneNumber = dto.PhoneNumber,
+        DateOfBirth = dto.DateOfBirth,
+        Gender = dto.Gender,
+        Level = dto.Level,
+        Department = dto.Department,
+        Gpa = dto.Gpa,
+        EnrollmentDate = dto.EnrollmentDate,
+        IsActive = dto.IsActive
+    };
+
+    public StudentCreateDto ToCreateDto() => new()
+    {
+        FirstName = FirstName.Trim(),
+        LastName = LastName.Trim(),
+        StudentNumber = StudentNumber.Trim(),
+        NationalId = NationalId.Trim(),
+        Email = Email.Trim(),
+        PhoneNumber = string.IsNullOrWhiteSpace(PhoneNumber) ? null : PhoneNumber.Trim(),
+        DateOfBirth = DateOfBirth,
+        Gender = Gender,
+        Level = Level,
+        Department = Department.Trim(),
+        Gpa = Gpa,
+        EnrollmentDate = EnrollmentDate,
+        IsActive = IsActive
+    };
+
+    public StudentUpdateDto ToUpdateDto() => new()
+    {
+        Id = Id,
+        FirstName = FirstName.Trim(),
+        LastName = LastName.Trim(),
+        Email = Email.Trim(),
+        PhoneNumber = string.IsNullOrWhiteSpace(PhoneNumber) ? null : PhoneNumber.Trim(),
+        DateOfBirth = DateOfBirth,
+        Gender = Gender,
+        Level = Level,
+        Department = Department.Trim(),
+        Gpa = Gpa,
+        EnrollmentDate = EnrollmentDate,
+        IsActive = IsActive
+    };
 
     public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
     {

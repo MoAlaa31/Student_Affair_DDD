@@ -16,8 +16,8 @@ public static class Program
 
         builder.Services.AddScoped(_ => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
         builder.Services.AddScoped<IStudentApi, StudentApi>();
-        builder.Services.AddScoped<IClassroomApi, ClassroomApi>();
-        builder.Services.AddScoped<ITeacherApi, TeacherApi>();
+        //builder.Services.AddScoped<IClassroomApi, ClassroomApi>();
+        //builder.Services.AddScoped<ITeacherApi, TeacherApi>();
 
         await builder.Build().RunAsync();
     }
