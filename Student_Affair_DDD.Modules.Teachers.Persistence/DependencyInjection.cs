@@ -13,7 +13,8 @@ public static class DependencyInjection
         var connection = configuration.GetConnectionString("Teachers")
             ?? throw new InvalidOperationException("Connection string 'Teachers' is required.");
 
-        services.AddDbContext<TeachersDbContext>(options => options.UseNpgsql(connection));
+        services.AddDbContext<TeachersDbContext>(options =>
+            options.UseSqlServer(connection, sql => sql.EnableRetryOnFailure()));
         services.AddScoped<ITeacherRepository, TeachersRepository>();
         services.AddScoped<IUnitOfWork, TeachersUnitOfWork>();
         return services;

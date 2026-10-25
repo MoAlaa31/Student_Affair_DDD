@@ -14,7 +14,8 @@ namespace Student_Affair_DDD.Modules.Classrooms.Persistence
             var connection = configuration.GetConnectionString("Classrooms")
                 ?? throw new InvalidOperationException("Connection string 'Classrooms' is required.");
 
-            services.AddDbContext<ClassroomsDbContext>(options => options.UseOracle(connection));
+            services.AddDbContext<ClassroomsDbContext>(options =>
+                options.UseSqlServer(connection, sql => sql.EnableRetryOnFailure()));
             services.AddScoped<IClassroomRepository, ClassroomsRepository>();
             services.AddScoped<IUnitOfWork, ClassroomsUnitOfWork>();
             return services;

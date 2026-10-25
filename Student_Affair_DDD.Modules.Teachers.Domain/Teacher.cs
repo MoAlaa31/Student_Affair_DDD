@@ -33,6 +33,18 @@ public sealed class Teacher
 
     public void Deactivate() => IsActive = false;
 
+    public void UpdateDetails(string employeeNumber, string firstName, string lastName, string email, string department)
+    {
+        var normalizedEmail = Required(email, nameof(email)).ToLowerInvariant();
+        if (!normalizedEmail.Contains('@')) throw new ArgumentException("A valid e-mail address is required.", nameof(email));
+
+        EmployeeNumber = Required(employeeNumber, nameof(employeeNumber)).ToUpperInvariant();
+        FirstName = Required(firstName, nameof(firstName));
+        LastName = Required(lastName, nameof(lastName));
+        Email = normalizedEmail;
+        Department = Required(department, nameof(department));
+    }
+
     private static string Required(string value, string name)
     {
         var normalized = value?.Trim();

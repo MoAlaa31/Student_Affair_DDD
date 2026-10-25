@@ -29,6 +29,24 @@ public sealed class ClassroomsController(IClassroomService service) : Controller
         }
     }
 
+    [HttpPut("{id:int}")]
+    [ProducesResponseType(typeof(ClassroomDto), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status409Conflict)]
+    public async Task<ActionResult<ClassroomDto>> Update(int id, [FromBody] ClassroomUpdateDto request, CancellationToken ct)
+    {
+        try
+        {
+            var updated = await service.UpdateAsync(id, request, ct);
+            return updated is null ? NotFound() : Ok(updated);
+        }
+        catch (InvalidOperationException exception)
+        {
+            return Conflict(new ProblemDetails { Title = "Classroom conflict", Detail = exception.Message, Status = StatusCodes.Status409Conflict });
+        }
+    }
+
     [HttpGet]
     [ProducesResponseType(typeof(PagedClassrooms), StatusCodes.Status200OK)]
     public async Task<ActionResult<PagedClassrooms>> Get([FromQuery] ClassroomPaginationSpecParams spec, CancellationToken ct)

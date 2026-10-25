@@ -9,17 +9,39 @@
 <EditForm Model="createModel" OnValidSubmit="CreateAsync" class="row g-2 mb-4">
     <DataAnnotationsValidator />
     <ValidationSummary />
-    <div class="col"><InputText class="form-control" @bind-Value="createModel.Code" placeholder="Code" /></div>
-    <div class="col"><InputText class="form-control" @bind-Value="createModel.Building" placeholder="Building" /></div>
-    <div class="col"><InputText class="form-control" @bind-Value="createModel.RoomNumber" placeholder="Room" /></div>
-    <div class="col"><InputNumber class="form-control" @bind-Value="createModel.Capacity" /></div>
-    <div class="col"><button class="btn btn-primary" type="submit">Add classroom</button></div>
+    <div class="col">
+        <label for="classroomCode" class="form-label">Classroom code</label>
+        <InputText id="classroomCode" class="form-control" @bind-Value="createModel.Code" placeholder="Enter classroom code" />
+    </div>
+    <div class="col">
+        <label for="building" class="form-label">Building</label>
+        <InputText id="building" class="form-control" @bind-Value="createModel.Building" placeholder="Enter building" />
+    </div>
+    <div class="col">
+        <label for="roomNumber" class="form-label">Room number</label>
+        <InputText id="roomNumber" class="form-control" @bind-Value="createModel.RoomNumber" placeholder="Enter room number" />
+    </div>
+    <div class="col">
+        <label for="capacity" class="form-label">Capacity</label>
+        <InputNumber id="capacity" class="form-control" @bind-Value="createModel.Capacity" />
+    </div>
+    <div class="col">
+        <button class="btn btn-primary" type="submit">@(editingId is null ? "Add classroom" : "Save changes")</button>
+        @if (editingId is not null)
+        {
+            <button class="btn btn-secondary ms-2" type="button" @onclick="CancelEdit">Cancel</button>
+        }
+    </div>
 </EditForm>
 
 @if (!string.IsNullOrWhiteSpace(error))
 {
     <div class="alert alert-danger">@error</div>
 }
+
+<h2>Registered Classrooms</h2>
+<p class="text-muted">Your classroom records are listed below.</p>
+
 @if (page is null)
 {
     <p>Loading classrooms...</p>
@@ -31,48 +53,16 @@ else if (page.Items.Count == 0)
 else
 {
     <table class="table">
-        <thead><tr><th>Code</th><th>Building</th><th>Room</th><th>Capacity</th><th>Active</th></tr></thead>
+        <thead><tr><th>Code</th><th>Building</th><th>Room</th><th>Capacity</th><th>Active</th><th>Actions</th></tr></thead>
         <tbody>
             @foreach (var classroom in page.Items)
             {
-                <tr><td>@classroom.Code</td><td>@classroom.Building</td><td>@classroom.RoomNumber</td><td>@classroom.Capacity</td><td>@classroom.IsActive</td></tr>
+                <tr>
+                    <td>@classroom.Code</td><td>@classroom.Building</td><td>@classroom.RoomNumber</td>
+                    <td>@classroom.Capacity</td><td>@classroom.IsActive</td>
+                    <td><button type="button" class="btn btn-sm btn-outline-primary" @onclick="() => EditClassroom(classroom)">Edit</button></td>
+                </tr>
             }
         </tbody>
     </table>
-}
-
-@code {
-    private readonly ClassroomQuery query = new();
-    private ClassroomCreateDto createModel = new();
-    private PagedClassrooms? page;
-    private string? error;
-
-    protected override async Task OnInitializedAsync() => await LoadAsync();
-
-    private async Task LoadAsync()
-    {
-        try
-        {
-            page = await ClassroomApi.GetPagedAsync(query);
-            error = null;
-        }
-        catch (Exception exception)
-        {
-            error = exception.Message;
-        }
-    }
-
-    private async Task CreateAsync()
-    {
-        try
-        {
-            await ClassroomApi.CreateAsync(createModel);
-            createModel = new ClassroomCreateDto();
-            await LoadAsync();
-        }
-        catch (Exception exception)
-        {
-            error = exception.Message;
-        }
-    }
 }

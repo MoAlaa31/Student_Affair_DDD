@@ -29,6 +29,15 @@ public sealed class Classroom
 
     public void Deactivate() => IsActive = false;
 
+    public void UpdateDetails(string code, string building, string roomNumber, int capacity)
+    {
+        if (capacity is < 1 or > 1000) throw new ArgumentOutOfRangeException(nameof(capacity), "Capacity must be between 1 and 1000.");
+        Code = Required(code, nameof(code)).ToUpperInvariant();
+        Building = Required(building, nameof(building));
+        RoomNumber = Required(roomNumber, nameof(roomNumber));
+        Capacity = capacity;
+    }
+
     private static string Required(string value, string name)
     {
         var normalized = value?.Trim();

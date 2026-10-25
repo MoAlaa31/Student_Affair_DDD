@@ -9,18 +9,43 @@
 <EditForm Model="createModel" OnValidSubmit="CreateAsync" class="row g-2 mb-4">
     <DataAnnotationsValidator />
     <ValidationSummary />
-    <div class="col"><InputText class="form-control" @bind-Value="createModel.EmployeeNumber" placeholder="Employee number" /></div>
-    <div class="col"><InputText class="form-control" @bind-Value="createModel.FirstName" placeholder="First name" /></div>
-    <div class="col"><InputText class="form-control" @bind-Value="createModel.LastName" placeholder="Last name" /></div>
-    <div class="col"><InputText class="form-control" @bind-Value="createModel.Email" placeholder="Email" /></div>
-    <div class="col"><InputText class="form-control" @bind-Value="createModel.Department" placeholder="Department" /></div>
-    <div class="col"><button class="btn btn-primary" type="submit">Add teacher</button></div>
+    <div class="col">
+        <label for="employeeNumber" class="form-label">Employee number</label>
+        <InputText id="employeeNumber" class="form-control" @bind-Value="createModel.EmployeeNumber" placeholder="Enter employee number" />
+    </div>
+    <div class="col">
+        <label for="firstName" class="form-label">First name</label>
+        <InputText id="firstName" class="form-control" @bind-Value="createModel.FirstName" placeholder="Enter first name" />
+    </div>
+    <div class="col">
+        <label for="lastName" class="form-label">Last name</label>
+        <InputText id="lastName" class="form-control" @bind-Value="createModel.LastName" placeholder="Enter last name" />
+    </div>
+    <div class="col">
+        <label for="teacherEmail" class="form-label">Email</label>
+        <InputText id="teacherEmail" type="email" class="form-control" @bind-Value="createModel.Email" placeholder="Enter email" />
+    </div>
+    <div class="col">
+        <label for="department" class="form-label">Department</label>
+        <InputText id="department" class="form-control" @bind-Value="createModel.Department" placeholder="Enter department" />
+    </div>
+    <div class="col">
+        <button class="btn btn-primary" type="submit">@(editingId is null ? "Add teacher" : "Save changes")</button>
+        @if (editingId is not null)
+        {
+            <button class="btn btn-secondary ms-2" type="button" @onclick="CancelEdit">Cancel</button>
+        }
+    </div>
 </EditForm>
 
 @if (!string.IsNullOrWhiteSpace(error))
 {
     <div class="alert alert-danger">@error</div>
 }
+
+<h2>Registered Teachers</h2>
+<p class="text-muted">Your teacher records are listed below.</p>
+
 @if (page is null)
 {
     <p>Loading teachers...</p>
@@ -32,48 +57,16 @@ else if (page.Items.Count == 0)
 else
 {
     <table class="table">
-        <thead><tr><th>Employee #</th><th>Name</th><th>Email</th><th>Department</th><th>Active</th></tr></thead>
+        <thead><tr><th>Employee #</th><th>Name</th><th>Email</th><th>Department</th><th>Active</th><th>Actions</th></tr></thead>
         <tbody>
             @foreach (var teacher in page.Items)
             {
-                <tr><td>@teacher.EmployeeNumber</td><td>@teacher.FullName</td><td>@teacher.Email</td><td>@teacher.Department</td><td>@teacher.IsActive</td></tr>
+                <tr>
+                    <td>@teacher.EmployeeNumber</td><td>@teacher.FullName</td><td>@teacher.Email</td>
+                    <td>@teacher.Department</td><td>@teacher.IsActive</td>
+                    <td><button type="button" class="btn btn-sm btn-outline-primary" @onclick="() => EditTeacher(teacher)">Edit</button></td>
+                </tr>
             }
         </tbody>
     </table>
-}
-
-@code {
-    private readonly TeacherQuery query = new();
-    private TeacherCreateDto createModel = new();
-    private PagedTeachers? page;
-    private string? error;
-
-    protected override async Task OnInitializedAsync() => await LoadAsync();
-
-    private async Task LoadAsync()
-    {
-        try
-        {
-            page = await TeacherApi.GetPagedAsync(query);
-            error = null;
-        }
-        catch (Exception exception)
-        {
-            error = exception.Message;
-        }
-    }
-
-    private async Task CreateAsync()
-    {
-        try
-        {
-            await TeacherApi.CreateAsync(createModel);
-            createModel = new TeacherCreateDto();
-            await LoadAsync();
-        }
-        catch (Exception exception)
-        {
-            error = exception.Message;
-        }
-    }
 }

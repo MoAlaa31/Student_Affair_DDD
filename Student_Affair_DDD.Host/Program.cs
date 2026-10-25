@@ -16,18 +16,18 @@ public static class Program
         builder.Services.AddOpenApi();
         builder.Services.AddControllers()
             .AddApplicationPart(typeof(StudentsController).Assembly)
-            //.AddApplicationPart(typeof(ClassroomsController).Assembly)
-            //.AddApplicationPart(typeof(TeachersController).Assembly)
+            .AddApplicationPart(typeof(ClassroomsController).Assembly)
+            .AddApplicationPart(typeof(TeachersController).Assembly)
             ;
 
         builder.Services.AddStudentsApplication();
         builder.Services.AddStudentsPersistence(builder.Configuration);
 
-        //builder.Services.AddClassroomsApplication();
-        //builder.Services.AddClassroomsPersistence(builder.Configuration);
+        builder.Services.AddClassroomsApplication();
+        builder.Services.AddClassroomsPersistence(builder.Configuration);
 
-        //builder.Services.AddTeachersApplication();
-        //builder.Services.AddTeachersPersistence(builder.Configuration);
+        builder.Services.AddTeachersApplication();
+        builder.Services.AddTeachersPersistence(builder.Configuration);
 
         var app = builder.Build();
         if (app.Environment.IsDevelopment())

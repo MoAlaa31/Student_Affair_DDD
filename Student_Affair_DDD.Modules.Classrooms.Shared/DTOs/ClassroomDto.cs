@@ -16,6 +16,18 @@ public sealed class ClassroomCreateDto
     public int Capacity { get; set; }
 }
 
+public sealed class ClassroomUpdateDto
+{
+    [Required, StringLength(20, MinimumLength = 1)]
+    public string Code { get; set; } = "";
+    [Required, StringLength(100, MinimumLength = 1)]
+    public string Building { get; set; } = "";
+    [Required, StringLength(20, MinimumLength = 1)]
+    public string RoomNumber { get; set; } = "";
+    [Range(1, 1000)]
+    public int Capacity { get; set; }
+}
+
 public sealed class ClassroomQuery
 {
     public int PageIndex { get; set; } = 1;

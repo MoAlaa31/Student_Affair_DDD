@@ -1,4 +1,5 @@
 using System.Net.Http.Json;
+using System.Net;
 using Student_Affair_DDD.Modules.Classrooms.Shared.Abstractions;
 using Student_Affair_DDD.Modules.Classrooms.Shared.DTOs;
 
@@ -19,5 +20,15 @@ public sealed class ClassroomApi(HttpClient httpClient) : IClassroomApi
         response.EnsureSuccessStatusCode();
         return await response.Content.ReadFromJsonAsync<ClassroomDto>(cancellationToken: cancellationToken)
             ?? throw new InvalidOperationException("The API returned an empty classroom response.");
+    }
+
+    public async Task<ClassroomDto?> UpdateAsync(int id, ClassroomUpdateDto dto, CancellationToken cancellationToken = default)
+    {
+        using var response = await httpClient.PutAsJsonAsync($"api/classrooms/{id}", dto, cancellationToken);
+        if (response.StatusCode == HttpStatusCode.NotFound)
+            return null;
+
+        response.EnsureSuccessStatusCode();
+        return await response.Content.ReadFromJsonAsync<ClassroomDto>(cancellationToken: cancellationToken);
     }
 }

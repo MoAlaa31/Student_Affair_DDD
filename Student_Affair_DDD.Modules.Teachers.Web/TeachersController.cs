@@ -29,6 +29,24 @@ public sealed class TeachersController(ITeacherService service) : ControllerBase
         }
     }
 
+    [HttpPut("{id:int}")]
+    [ProducesResponseType(typeof(TeacherDto), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status409Conflict)]
+    public async Task<ActionResult<TeacherDto>> Update(int id, [FromBody] TeacherUpdateDto request, CancellationToken ct)
+    {
+        try
+        {
+            var updated = await service.UpdateAsync(id, request, ct);
+            return updated is null ? NotFound() : Ok(updated);
+        }
+        catch (InvalidOperationException exception)
+        {
+            return Conflict(new ProblemDetails { Title = "Teacher conflict", Detail = exception.Message, Status = StatusCodes.Status409Conflict });
+        }
+    }
+
     [HttpGet]
     [ProducesResponseType(typeof(PagedTeachers), StatusCodes.Status200OK)]
     public async Task<ActionResult<PagedTeachers>> Get([FromQuery] TeacherPaginationSpecParams spec, CancellationToken ct)

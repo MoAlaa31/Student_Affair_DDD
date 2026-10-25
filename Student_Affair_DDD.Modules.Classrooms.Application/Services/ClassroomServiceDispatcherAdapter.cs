@@ -12,4 +12,7 @@ public sealed class ClassroomServiceDispatcherAdapter(IClassroomsDispatcher disp
 
     public Task<ClassroomDto> CreateAsync(ClassroomCreateDto request, CancellationToken cancellationToken = default)
         => dispatcher.Send(new RegisterClassroom(request), cancellationToken);
+
+    public Task<ClassroomDto?> UpdateAsync(int id, ClassroomUpdateDto request, CancellationToken cancellationToken = default)
+        => dispatcher.Send(new UpdateClassroom(id, request), cancellationToken);
 }

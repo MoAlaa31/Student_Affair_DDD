@@ -8,6 +8,7 @@ using Student_Affair_DDD.Modules.Classrooms.Shared.DTOs;
 namespace Student_Affair_DDD.Modules.Classrooms.Application.Classrooms;
 
 public sealed record RegisterClassroom(ClassroomCreateDto Request) : IRequest<ClassroomDto>;
+public sealed record UpdateClassroom(int Id, ClassroomUpdateDto Request) : IRequest<ClassroomDto?>;
 public sealed record GetClassrooms(ClassroomPaginationSpecParams Spec) : IRequest<PagedClassrooms>;
 
 public sealed class RegisterClassroomHandler(IUnitOfWork unitOfWork) : IHandler<RegisterClassroom, ClassroomDto>
@@ -24,6 +25,26 @@ public sealed class RegisterClassroomHandler(IUnitOfWork unitOfWork) : IHandler<
     }
 
     private static ClassroomDto Map(Classroom c) => new(c.Id, c.Code, c.Building, c.RoomNumber, c.Capacity, c.IsActive, c.CreatedAtUtc);
+}
+
+public sealed class UpdateClassroomHandler(IUnitOfWork unitOfWork) : IHandler<UpdateClassroom, ClassroomDto?>
+{
+    public async Task<ClassroomDto?> Handle(UpdateClassroom command, CancellationToken cancellationToken)
+    {
+        var classroom = await unitOfWork.Classrooms.GetByIdAsync(command.Id, cancellationToken);
+        if (classroom is null)
+            return null;
+
+        var request = command.Request;
+        if (await unitOfWork.Classrooms.CodeExistsAsync(request.Code, command.Id, cancellationToken))
+            throw new InvalidOperationException("A classroom with that code already exists.");
+
+        classroom.UpdateDetails(request.Code, request.Building, request.RoomNumber, request.Capacity);
+        unitOfWork.Classrooms.Update(classroom);
+        await unitOfWork.SaveChangesAsync(cancellationToken);
+        return new ClassroomDto(classroom.Id, classroom.Code, classroom.Building, classroom.RoomNumber,
+            classroom.Capacity, classroom.IsActive, classroom.CreatedAtUtc);
+    }
 }
 
 public sealed class GetClassroomsHandler(IClassroomRepository repository) : IHandler<GetClassrooms, PagedClassrooms>

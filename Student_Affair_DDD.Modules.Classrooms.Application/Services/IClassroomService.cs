@@ -8,4 +8,5 @@ public interface IClassroomService
 {
     Task<PagedClassrooms> GetPagedAsync(ClassroomPaginationSpecParams query, CancellationToken cancellationToken = default);
     Task<ClassroomDto> CreateAsync(ClassroomCreateDto request, CancellationToken cancellationToken = default);
+    Task<ClassroomDto?> UpdateAsync(int id, ClassroomUpdateDto request, CancellationToken cancellationToken = default);
 }
