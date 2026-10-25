@@ -1,8 +1,5 @@
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
-using Student_Affair_DDD.Modules.Classrooms.Shared.Abstractions;
-using Student_Affair_DDD.Modules.Students.Shared.Abstractions;
-using Student_Affair_DDD.Modules.Teachers.Shared.Abstractions;
 using Student_Affair_DDD.Web.Client;
 using Student_Affair_DDD.Web.Client.Services;
 

@@ -1,8 +1,3 @@
-using System.Net;
-using System.Net.Http.Json;
-using Student_Affair_DDD.Modules.Students.Shared.Abstractions;
-using Student_Affair_DDD.Modules.Students.Shared.DTOs;
-
 namespace Student_Affair_DDD.Web.Client.Services;
 
 public sealed class StudentApi : IStudentApi

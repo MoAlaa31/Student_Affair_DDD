@@ -1,7 +1,3 @@
-using System.ComponentModel.DataAnnotations;
-using Student_Affair_DDD.Modules.Students.Domain.Enums;
-using Student_Affair_DDD.Modules.Students.Shared.DTOs;
-
 namespace Student_Affair_DDD.Web.Client.Models;
 
 /// <summary>Editable fields required by the Students API for creating or updating a student.</summary>

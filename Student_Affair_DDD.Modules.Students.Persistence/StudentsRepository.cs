@@ -1,7 +1,4 @@
-using Microsoft.EntityFrameworkCore;
-using Student_Affair_DDD.Modules.Students.Application.Common.Interfaces.EntitiesIRepos;
 using Student_Affair_DDD.Modules.Students.Application.SpecParams;
-using Student_Affair_DDD.Modules.Students.Domain.Entities;
 using System.Linq.Expressions;
 
 namespace Student_Affair_DDD.Modules.Students.Persistence;

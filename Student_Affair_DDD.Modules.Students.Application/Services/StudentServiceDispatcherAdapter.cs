@@ -1,4 +1,3 @@
-﻿using Student_Affair_DDD.Modules.Students.Application.Common.Messaging;
 using Student_Affair_DDD.Modules.Students.Application.UseCases.CreateStudent;
 using Student_Affair_DDD.Modules.Students.Application.UseCases.DeleteStudent;
 using Student_Affair_DDD.Modules.Students.Application.UseCases.GetAllStudents;
@@ -6,7 +5,6 @@ using Student_Affair_DDD.Modules.Students.Application.UseCases.GetDepartments;
 using Student_Affair_DDD.Modules.Students.Application.UseCases.GetStudentById;
 using Student_Affair_DDD.Modules.Students.Application.UseCases.GetStudentsPaged;
 using Student_Affair_DDD.Modules.Students.Application.UseCases.UpdateStudent;
-using Student_Affair_DDD.Modules.Students.Shared.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Text;

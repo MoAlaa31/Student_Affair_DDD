@@ -1,4 +1,3 @@
-using System.ComponentModel.DataAnnotations;
 
 namespace Student_Affair_DDD.Contracts;
 

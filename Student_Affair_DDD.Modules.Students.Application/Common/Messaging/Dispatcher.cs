@@ -1,4 +1,3 @@
-using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 
 namespace Student_Affair_DDD.Modules.Students.Application.Common.Messaging;

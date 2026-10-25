@@ -1,5 +1,3 @@
-using Microsoft.Extensions.DependencyInjection;
-using Student_Affair_DDD.Modules.Students.Application.Common.Messaging;
 using Student_Affair_DDD.Modules.Students.Application.Services;
 
 namespace Student_Affair_DDD.Modules.Students.Application;

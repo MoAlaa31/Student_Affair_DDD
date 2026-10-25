@@ -1,7 +1,4 @@
 using Microsoft.AspNetCore.Components;
-using Student_Affair_DDD.Modules.Students.Shared.Abstractions;
-using Student_Affair_DDD.Modules.Students.Shared.DTOs;
-using Student_Affair_DDD.Web.Client.Models;
 
 namespace BlazorAppServer;
 

@@ -1,8 +1,3 @@
-using System.Net.Http.Json;
-using System.Net;
-using Student_Affair_DDD.Modules.Teachers.Shared.Abstractions;
-using Student_Affair_DDD.Modules.Teachers.Shared.DTOs;
-
 namespace Student_Affair_DDD.Web.Client.Services;
 
 public sealed class TeacherApi(HttpClient httpClient) : ITeacherApi

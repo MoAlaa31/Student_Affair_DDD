@@ -1,5 +1,3 @@
-﻿using Student_Affair_DDD.Modules.Students.Domain.Enums;
-using System.ComponentModel.DataAnnotations;
 
 namespace Student_Affair_DDD.Modules.Students.Shared.DTOs
 {

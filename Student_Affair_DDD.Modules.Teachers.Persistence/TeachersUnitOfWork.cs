@@ -1,5 +1,3 @@
-using Student_Affair_DDD.Modules.Teachers.Application.Common.Interfaces;
-using Student_Affair_DDD.Modules.Teachers.Application.Common.Interfaces.EntitiesIRepos;
 using Microsoft.EntityFrameworkCore.Storage;
 
 namespace Student_Affair_DDD.Modules.Teachers.Persistence;

@@ -1,5 +1,3 @@
-using Student_Affair_DDD.Modules.Classrooms.Shared.DTOs;
-
 namespace Student_Affair_DDD.Web.Client.Pages
 {
     public partial class Classrooms

@@ -1,8 +1,5 @@
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Student_Affair_DDD.Modules.Students.Application.Common.Interfaces;
-using Student_Affair_DDD.Modules.Students.Application.Common.Interfaces.EntitiesIRepos;
 
 namespace Student_Affair_DDD.Modules.Students.Persistence;
 

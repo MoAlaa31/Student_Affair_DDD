@@ -1,9 +1,4 @@
-using Student_Affair_DDD.Modules.Teachers.Application.Messaging;
-using Student_Affair_DDD.Modules.Teachers.Domain;
-using Student_Affair_DDD.Modules.Teachers.Application.Common;
 using Student_Affair_DDD.Modules.Teachers.Application.Common.Interfaces;
-using Student_Affair_DDD.Modules.Teachers.Application.Common.Interfaces.EntitiesIRepos;
-using Student_Affair_DDD.Modules.Teachers.Shared.DTOs;
 
 namespace Student_Affair_DDD.Modules.Teachers.Application.Teachers;
 

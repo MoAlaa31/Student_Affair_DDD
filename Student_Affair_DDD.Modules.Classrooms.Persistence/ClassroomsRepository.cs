@@ -1,8 +1,5 @@
-using Microsoft.EntityFrameworkCore;
 using Student_Affair_DDD.Modules.Classrooms.Application.Common;
-using Student_Affair_DDD.Modules.Classrooms.Application.Common.Interfaces.EntitiesIRepos;
 using Student_Affair_DDD.Modules.Classrooms.Application.Classrooms;
-using Student_Affair_DDD.Modules.Classrooms.Domain;
 
 namespace Student_Affair_DDD.Modules.Classrooms.Persistence;
 

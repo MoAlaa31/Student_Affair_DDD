@@ -16,19 +16,16 @@ public class StudentsController : ControllerBase
 
     public StudentsController(IStudentService service) => _service = service;
 
-    /// <summary>Paged / filtered list of students.</summary>
     [HttpGet]
     [ProducesResponseType(typeof(PagedResult<StudentDto>), StatusCodes.Status200OK)]
     public async Task<ActionResult<PagedResult<StudentDto>>> GetPaged([FromQuery] StudentQuery query, CancellationToken ct)
         => Ok(await _service.GetPagedAsync(query, ct));
 
-    /// <summary>Unpaged list of every student (convenience endpoint for small data sets).</summary>
     [HttpGet("all")]
     [ProducesResponseType(typeof(IReadOnlyList<StudentDto>), StatusCodes.Status200OK)]
     public async Task<ActionResult<IReadOnlyList<StudentDto>>> GetAll(CancellationToken ct)
         => Ok(await _service.GetAllAsync(ct));
 
-    /// <summary>Distinct department names, for filter drop-downs.</summary>
     [HttpGet("departments")]
     [ProducesResponseType(typeof(IReadOnlyList<string>), StatusCodes.Status200OK)]
     public async Task<ActionResult<IReadOnlyList<string>>> GetDepartments(CancellationToken ct)

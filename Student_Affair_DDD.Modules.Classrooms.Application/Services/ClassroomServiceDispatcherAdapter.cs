@@ -1,7 +1,3 @@
-using Student_Affair_DDD.Modules.Classrooms.Application.Classrooms;
-using Student_Affair_DDD.Modules.Classrooms.Application.Common;
-using Student_Affair_DDD.Modules.Classrooms.Application.Messaging;
-using Student_Affair_DDD.Modules.Classrooms.Shared.DTOs;
 
 namespace Student_Affair_DDD.Modules.Classrooms.Application.Services;
 

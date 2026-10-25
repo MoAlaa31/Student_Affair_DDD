@@ -1,0 +1,11 @@
+global using System.ComponentModel.DataAnnotations;
+global using System.Net;
+global using System.Net.Http.Json;
+global using Student_Affair_DDD.Modules.Classrooms.Shared.Abstractions;
+global using Student_Affair_DDD.Modules.Classrooms.Shared.DTOs;
+global using Student_Affair_DDD.Modules.Students.Domain.Enums;
+global using Student_Affair_DDD.Modules.Students.Shared.Abstractions;
+global using Student_Affair_DDD.Modules.Students.Shared.DTOs;
+global using Student_Affair_DDD.Modules.Teachers.Shared.Abstractions;
+global using Student_Affair_DDD.Modules.Teachers.Shared.DTOs;
+global using Student_Affair_DDD.Web.Client.Models;

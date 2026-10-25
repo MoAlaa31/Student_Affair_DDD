@@ -1,4 +1,3 @@
-using Student_Affair_DDD.Modules.Teachers.Domain;
 
 namespace Student_Affair_DDD.Modules.Teachers.Application.Common.Interfaces.EntitiesIRepos;
 

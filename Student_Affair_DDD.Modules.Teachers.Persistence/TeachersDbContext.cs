@@ -1,7 +1,4 @@
-using Microsoft.EntityFrameworkCore;
 using Student_Affair_DDD.Modules.Teachers.Application.Teachers;
-using Student_Affair_DDD.Modules.Teachers.Application.Common.Interfaces;
-using Student_Affair_DDD.Modules.Teachers.Domain;
 
 namespace Student_Affair_DDD.Modules.Teachers.Persistence;
 

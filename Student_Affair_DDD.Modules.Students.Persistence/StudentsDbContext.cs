@@ -1,5 +1,3 @@
-using Microsoft.EntityFrameworkCore;
-using Student_Affair_DDD.Modules.Students.Domain.Entities;
 
 namespace Student_Affair_DDD.Modules.Students.Persistence;
 

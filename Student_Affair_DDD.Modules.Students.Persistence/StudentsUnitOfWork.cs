@@ -1,6 +1,4 @@
 using Microsoft.EntityFrameworkCore.Storage;
-using Student_Affair_DDD.Modules.Students.Application.Common.Interfaces;
-using Student_Affair_DDD.Modules.Students.Application.Common.Interfaces.EntitiesIRepos;
 using Student_Affair_DDD.Modules.Students.Domain.Common;
 using System.Collections.Concurrent;
 

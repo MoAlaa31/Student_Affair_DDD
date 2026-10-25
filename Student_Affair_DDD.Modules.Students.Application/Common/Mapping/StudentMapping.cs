@@ -1,5 +1,3 @@
-using Student_Affair_DDD.Modules.Students.Domain.Entities;
-using Student_Affair_DDD.Modules.Students.Shared.DTOs;
 
 
 namespace Student_Affair_DDD.Modules.Students.Application.Common.Mapping;
