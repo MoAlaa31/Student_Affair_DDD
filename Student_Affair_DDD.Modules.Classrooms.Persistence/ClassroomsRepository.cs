@@ -1,4 +1,3 @@
-using Student_Affair_DDD.Modules.Classrooms.Application.Classrooms;
 using Student_Affair_DDD.Modules.Classrooms.Application.SpecParams;
 
 namespace Student_Affair_DDD.Modules.Classrooms.Persistence;
@@ -14,11 +13,7 @@ internal sealed class ClassroomsRepository(ClassroomsDbContext db) : IClassroomR
     public async Task<(IReadOnlyList<Classroom> Items, int TotalCount)> GetPagedAsync(ClassroomPaginationSpecParams spec, CancellationToken cancellationToken = default)
     {
         var query = db.Classrooms.AsNoTracking().AsQueryable();
-        if (!string.IsNullOrWhiteSpace(spec.Search))
-        {
-            var value = spec.Search.Trim();
-            query = query.Where(c => c.Code.Contains(value) || c.Building.Contains(value) || c.RoomNumber.Contains(value));
-        }
+
         if (spec.IsActive is not null) query = query.Where(c => c.IsActive == spec.IsActive);
         var totalCount = await query.CountAsync(cancellationToken);
         query = spec.SortBy?.ToLowerInvariant() switch

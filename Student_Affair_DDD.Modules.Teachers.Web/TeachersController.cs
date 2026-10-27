@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
-using Student_Affair_DDD.Modules.Teachers.Application.Teachers;
 using Student_Affair_DDD.Modules.Teachers.Application.Common;
 using Student_Affair_DDD.Modules.Teachers.Application.Services;
 using Student_Affair_DDD.Modules.Teachers.Shared.DTOs;

@@ -3,10 +3,10 @@ namespace Student_Affair_DDD.Modules.Classrooms.Domain;
 /// <summary>Classroom aggregate root. Classroom identity and capacity rules belong to this module.</summary>
 public sealed class Classroom
 {
-    private Classroom() { } // EF Core
-
     public int Id { get; set; }
     public string Code { get; set; } = "";
+    public string Building { get; set; } = "";
+    public string RoomNumber { get; set; } = "";
     public int StudentId { get; set; }
     public int TeacherId { get; set; }
     public int Capacity { get; set; }

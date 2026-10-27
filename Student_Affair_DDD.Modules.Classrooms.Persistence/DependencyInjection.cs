@@ -1,6 +1,5 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Student_Affair_DDD.Modules.Classrooms.Application.Classrooms;
 
 namespace Student_Affair_DDD.Modules.Classrooms.Persistence
 {
