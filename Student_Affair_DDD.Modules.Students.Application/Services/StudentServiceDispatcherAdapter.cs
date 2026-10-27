@@ -11,30 +11,27 @@ using System.Text;
 
 namespace Student_Affair_DDD.Modules.Students.Application.Services
 {
-    public sealed class StudentServiceDispatcherAdapter : IStudentService
+    public sealed class StudentServiceDispatcherAdapter(IDispatcher dispatcher) : IStudentService
     {
-        private readonly IDispatcher _dispatcher;
-        public StudentServiceDispatcherAdapter(IDispatcher dispatcher) => _dispatcher = dispatcher;
-
         public Task<PagedResult<StudentDto>> GetPagedAsync(StudentQuery query, CancellationToken cancellationToken = default)
-            => _dispatcher.Send(new GetStudentsPagedQuery(query), cancellationToken);
+            => dispatcher.Send(new GetStudentsPagedQuery(query), cancellationToken);
 
         public Task<IReadOnlyList<StudentDto>> GetAllAsync(CancellationToken cancellationToken = default)
-            => _dispatcher.Send(new GetAllStudentsQuery(), cancellationToken);
+            => dispatcher.Send(new GetAllStudentsQuery(), cancellationToken);
 
         public Task<StudentDto?> GetByIdAsync(int id, CancellationToken cancellationToken = default)
-            => _dispatcher.Send(new GetStudentByIdQuery(id), cancellationToken);
+            => dispatcher.Send(new GetStudentByIdQuery(id), cancellationToken);
 
         public Task<StudentDto> CreateAsync(StudentCreateDto dto, CancellationToken cancellationToken = default)
-            => _dispatcher.Send(new CreateStudentCommand(dto), cancellationToken);
+            => dispatcher.Send(new CreateStudentCommand(dto), cancellationToken);
 
         public Task<StudentDto> UpdateAsync(int id, StudentUpdateDto dto, CancellationToken cancellationToken = default)
-            => _dispatcher.Send(new UpdateStudentCommand(id, dto), cancellationToken);
+            => dispatcher.Send(new UpdateStudentCommand(id, dto), cancellationToken);
 
         public Task<bool> DeleteAsync(int id, CancellationToken cancellationToken = default)
-            => _dispatcher.Send(new DeleteStudentCommand(id), cancellationToken);
+            => dispatcher.Send(new DeleteStudentCommand(id), cancellationToken);
 
         public Task<IReadOnlyList<string>> GetDepartmentsAsync(CancellationToken cancellationToken = default)
-            => _dispatcher.Send(new GetDepartmentsQuery(), cancellationToken);
+            => dispatcher.Send(new GetDepartmentsQuery(), cancellationToken);
     }
 }

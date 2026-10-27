@@ -1,10 +1,6 @@
 using System.Reflection;
 
 namespace Student_Affair_DDD.Modules.Students.Application.Common.Messaging;
-public interface IDispatcher
-{
-    Task<TResponse> Send<TResponse>(IRequest<TResponse> request, CancellationToken cancellationToken = default);
-}
 
 public sealed class Dispatcher : IDispatcher
 {
@@ -19,3 +15,4 @@ public sealed class Dispatcher : IDispatcher
         return await handler.Handle((dynamic)request, cancellationToken);
     }
 }
+    

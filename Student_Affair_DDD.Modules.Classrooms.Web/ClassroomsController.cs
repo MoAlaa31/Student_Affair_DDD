@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using Student_Affair_DDD.Modules.Classrooms.Application.Classrooms;
-using Student_Affair_DDD.Modules.Classrooms.Application.Common;
 using Student_Affair_DDD.Modules.Classrooms.Application.Services;
 using Student_Affair_DDD.Modules.Classrooms.Shared.DTOs;
+using Student_Affair_DDD.Modules.Classrooms.Application.SpecParams;
 
 namespace Student_Affair_DDD.Modules.Classrooms.Web;
 

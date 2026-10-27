@@ -1,5 +1,5 @@
-using Student_Affair_DDD.Modules.Classrooms.Application.Common;
 using Student_Affair_DDD.Modules.Classrooms.Application.Classrooms;
+using Student_Affair_DDD.Modules.Classrooms.Application.SpecParams;
 
 namespace Student_Affair_DDD.Modules.Classrooms.Persistence;
 

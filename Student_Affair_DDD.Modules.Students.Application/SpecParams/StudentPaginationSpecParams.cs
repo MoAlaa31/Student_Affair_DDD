@@ -14,9 +14,10 @@ namespace Student_Affair_DDD.Modules.Students.Application.SpecParams
             set { search = value?.ToLower(); }
         }
 
-        public bool? isActive { get; set; }
-        public string? sortBy { get; set; }
+        public bool? IsActive { get; set; }
+        public string? SortBy { get; set; }
         public bool sortDescending { get; set; }
         public string? department { get; set; }
     }
 }
+    

@@ -1,4 +1,6 @@
 
+using Student_Affair_DDD.Modules.Classrooms.Application.SpecParams;
+
 namespace Student_Affair_DDD.Modules.Classrooms.Application.Common.Interfaces.EntitiesIRepos;
 
 public interface IClassroomRepository

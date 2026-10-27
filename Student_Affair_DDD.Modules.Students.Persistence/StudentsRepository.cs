@@ -40,12 +40,12 @@ internal sealed class StudentsRepository : IStudentRepository
         if (!string.IsNullOrWhiteSpace(studentPagination.department))
             query = query.Where(s => s.Department == studentPagination.department);
 
-        if (studentPagination.isActive is not null)
-            query = query.Where(s => s.IsActive == studentPagination.isActive);
+        if (studentPagination.IsActive is not null)
+            query = query.Where(s => s.IsActive == studentPagination.IsActive);
 
         var total = await query.CountAsync(cancellationToken);
 
-        query = (studentPagination.sortBy?.ToLowerInvariant()) switch
+        query = (studentPagination.SortBy?.ToLowerInvariant()) switch
         {
             "studentnumber" => studentPagination.sortDescending ? query.OrderByDescending(s => s.StudentNumber) : query.OrderBy(s => s.StudentNumber),
             "department" => studentPagination.sortDescending ? query.OrderByDescending(s => s.Department).ThenBy(s => s.LastName) : query.OrderBy(s => s.Department).ThenBy(s => s.LastName),

@@ -1,12 +1,12 @@
 using Student_Affair_DDD.Modules.Students.Application;
 using Student_Affair_DDD.Modules.Students.Persistence;
 using Student_Affair_DDD.Modules.Students.Web;
-using Student_Affair_DDD.Modules.Classrooms.Application.Messaging;
 using Student_Affair_DDD.Modules.Classrooms.Persistence;
 using Student_Affair_DDD.Modules.Classrooms.Web;
 using Student_Affair_DDD.Modules.Teachers.Application.Messaging;
 using Student_Affair_DDD.Modules.Teachers.Persistence;
 using Student_Affair_DDD.Modules.Teachers.Web;
+using Student_Affair_DDD.Modules.Classrooms.Application;
 
 public static class Program
 {

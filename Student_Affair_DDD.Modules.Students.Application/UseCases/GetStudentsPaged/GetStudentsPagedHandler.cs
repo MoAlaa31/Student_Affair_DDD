@@ -18,8 +18,8 @@ namespace Student_Affair_DDD.Modules.Students.Application.UseCases.GetStudentsPa
             var spec = new StudentPaginationSpecParams();
             spec.Search = request.Query.Search;
             spec.department = request.Query.Department;
-            spec.isActive = request.Query.IsActive;
-            spec.sortBy = request.Query.SortBy;
+            spec.IsActive = request.Query.IsActive;
+            spec.SortBy = request.Query.SortBy;
             spec.sortDescending = request.Query.SortDescending;
             spec.PageIndex = request.Query.Page < 1 ? 1 : request.Query.Page;
             spec.PageSize = request.Query.PageSize is < 1 or > 200 ? 10 : request.Query.PageSize;
