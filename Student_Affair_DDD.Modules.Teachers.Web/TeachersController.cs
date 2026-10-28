@@ -50,4 +50,13 @@ public sealed class TeachersController(ITeacherService service) : ControllerBase
     [ProducesResponseType(typeof(PagedTeachers), StatusCodes.Status200OK)]
     public async Task<ActionResult<PagedTeachers>> Get([FromQuery] TeacherPaginationSpecParams spec, CancellationToken ct)
         => Ok(await service.GetPagedAsync(spec, ct));
+
+    [HttpGet("{id:int}")]
+    [ProducesResponseType(typeof(TeacherDto), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult<TeacherDto>> GetById(int id, CancellationToken ct)
+    {
+        var teacher = await service.GetByIdAsync(id, ct);
+        return teacher is null ? NotFound() : Ok(teacher);
+    }
 }

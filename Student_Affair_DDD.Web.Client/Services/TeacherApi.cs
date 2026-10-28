@@ -9,6 +9,14 @@ public sealed class TeacherApi(HttpClient httpClient) : ITeacherApi
             ?? new PagedTeachers([], 0, query.PageIndex, query.PageSize);
     }
 
+    public async Task<TeacherDto?> GetByIdAsync(int id, CancellationToken cancellationToken = default)
+    {
+        using var response = await httpClient.GetAsync($"api/teachers/{id}", cancellationToken);
+        if (response.StatusCode == HttpStatusCode.NotFound) return null;
+        response.EnsureSuccessStatusCode();
+        return await response.Content.ReadFromJsonAsync<TeacherDto>(cancellationToken: cancellationToken);
+    }
+
     public async Task<TeacherDto> CreateAsync(TeacherCreateDto dto, CancellationToken cancellationToken = default)
     {
         var response = await httpClient.PostAsJsonAsync("api/teachers", dto, cancellationToken);

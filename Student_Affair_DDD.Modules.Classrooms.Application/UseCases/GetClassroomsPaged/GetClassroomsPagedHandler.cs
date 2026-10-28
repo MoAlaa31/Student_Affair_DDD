@@ -8,7 +8,8 @@ public sealed class GetClassroomsPagedHandler(IClassroomRepository repository)
         var (items, totalCount) = await repository.GetPagedAsync(query.Spec, cancellationToken);
         var results = items.Select(classroom => new ClassroomDto(classroom.Id, classroom.Code,
             classroom.Building, classroom.RoomNumber, classroom.Capacity, classroom.IsActive,
-            classroom.CreatedAtUtc)).ToArray();
+            classroom.CreatedAtUtc, classroom.Students.Select(x => x.StudentId).ToArray(),
+            classroom.Teachers.Select(x => x.TeacherId).ToArray())).ToArray();
         return new PagedClassrooms(results, totalCount, query.Spec.PageIndex, query.Spec.PageSize);
     }
 }

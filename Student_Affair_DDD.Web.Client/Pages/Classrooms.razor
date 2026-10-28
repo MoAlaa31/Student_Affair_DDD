@@ -1,5 +1,7 @@
 @page "/classrooms"
 @inject IClassroomApi ClassroomApi
+@inject IStudentApi StudentApi
+@inject ITeacherApi TeacherApi
 
 <PageTitle>Classrooms</PageTitle>
 <h1>Classrooms</h1>
@@ -23,6 +25,26 @@
         <label for="capacity" class="form-label">Capacity</label>
         <InputNumber id="capacity" class="form-control" @bind-Value="createModel.Capacity" />
     </div>
+    <div class="col-md-6">
+        <label for="students" class="form-label">Students (select one or more)</label>
+        <InputSelect id="students" TValue="int[]" class="form-select" @bind-Value="createModel.StudentIds" multiple size="5">
+            @foreach (var student in availableStudents)
+            {
+                <option value="@student.Id">@student.FullName (@student.StudentNumber)</option>
+            }
+        </InputSelect>
+        <small class="text-muted">Hold Ctrl while selecting multiple students.</small>
+    </div>
+    <div class="col-md-6">
+        <label for="teachers" class="form-label">Teachers (select one or more)</label>
+        <InputSelect id="teachers" TValue="int[]" class="form-select" @bind-Value="createModel.TeacherIds" multiple size="5">
+            @foreach (var teacher in availableTeachers)
+            {
+                <option value="@teacher.Id">@teacher.FullName (@teacher.EmployeeNumber)</option>
+            }
+        </InputSelect>
+        <small class="text-muted">Hold Ctrl while selecting multiple teachers.</small>
+    </div>
     <div class="col">
         <button class="btn btn-primary" type="submit">@(editingId is null ? "Add classroom" : "Save changes")</button>
         @if (editingId is not null)
@@ -35,6 +57,10 @@
 @if (!string.IsNullOrWhiteSpace(error))
 {
     <div class="alert alert-danger">@error</div>
+}
+@if (!string.IsNullOrWhiteSpace(peopleError))
+{
+    <div class="alert alert-warning">@peopleError</div>
 }
 
 <h2>Registered Classrooms</h2>
@@ -51,13 +77,16 @@ else if (page.Items.Count == 0)
 else
 {
     <table class="table">
-        <thead><tr><th>Code</th><th>Building</th><th>Room</th><th>Capacity</th><th>Active</th><th>Actions</th></tr></thead>
+        <thead><tr><th>Code</th><th>Building</th><th>Room</th><th>Capacity</th><th>Students</th><th>Teachers</th><th>Active</th><th>Actions</th></tr></thead>
         <tbody>
             @foreach (var classroom in page.Items)
             {
                 <tr>
                     <td>@classroom.Code</td><td>@classroom.Building</td><td>@classroom.RoomNumber</td>
-                    <td>@classroom.Capacity</td><td>@classroom.IsActive</td>
+                    <td>@classroom.Capacity</td>
+                    <td>@string.Join(", ", classroom.StudentIds.Select(id => availableStudents.FirstOrDefault(student => student.Id == id)?.FullName ?? $"#{id}"))</td>
+                    <td>@string.Join(", ", classroom.TeacherIds.Select(id => availableTeachers.FirstOrDefault(teacher => teacher.Id == id)?.FullName ?? $"#{id}"))</td>
+                    <td>@classroom.IsActive</td>
                     <td><button type="button" class="btn btn-sm btn-outline-primary" @onclick="() => EditClassroom(classroom)">Edit</button></td>
                 </tr>
             }

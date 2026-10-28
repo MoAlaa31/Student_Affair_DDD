@@ -8,6 +8,7 @@ public sealed class GetClassroomByIdHandler(IClassroomRepository repository)
         var classroom = await repository.GetByIdAsync(query.Id, cancellationToken);
         return classroom is null ? null : new ClassroomDto(classroom.Id, classroom.Code,
             classroom.Building, classroom.RoomNumber, classroom.Capacity, classroom.IsActive,
-            classroom.CreatedAtUtc);
+            classroom.CreatedAtUtc, classroom.Students.Select(x => x.StudentId).ToArray(),
+            classroom.Teachers.Select(x => x.TeacherId).ToArray());
     }
 }

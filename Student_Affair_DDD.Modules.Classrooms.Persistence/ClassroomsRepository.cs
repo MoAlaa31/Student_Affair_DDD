@@ -4,7 +4,11 @@ namespace Student_Affair_DDD.Modules.Classrooms.Persistence;
 
 internal sealed class ClassroomsRepository(ClassroomsDbContext db) : IClassroomRepository
 {
-    public Task<Classroom?> GetByIdAsync(int id, CancellationToken cancellationToken = default) => db.Classrooms.FindAsync([id], cancellationToken).AsTask();
+    public Task<Classroom?> GetByIdAsync(int id, CancellationToken cancellationToken = default) => db.Classrooms
+        .Include(classroom => classroom.Students)
+        .Include(classroom => classroom.Teachers)
+        .AsSplitQuery()
+        .SingleOrDefaultAsync(classroom => classroom.Id == id, cancellationToken);
     public Task<bool> CodeExistsAsync(string code, int? excludeId = null, CancellationToken cancellationToken = default)
         => db.Classrooms.AnyAsync(c => c.Code == code.Trim().ToUpper() && (excludeId == null || c.Id != excludeId), cancellationToken);
     public Task AddAsync(Classroom classroom, CancellationToken cancellationToken = default) => db.Classrooms.AddAsync(classroom, cancellationToken).AsTask();
@@ -12,7 +16,19 @@ internal sealed class ClassroomsRepository(ClassroomsDbContext db) : IClassroomR
     public void Remove(Classroom classroom) => db.Classrooms.Remove(classroom);
     public async Task<(IReadOnlyList<Classroom> Items, int TotalCount)> GetPagedAsync(ClassroomPaginationSpecParams spec, CancellationToken cancellationToken = default)
     {
-        var query = db.Classrooms.AsNoTracking().AsQueryable();
+        var query = db.Classrooms.AsNoTracking()
+            .Include(classroom => classroom.Students)
+            .Include(classroom => classroom.Teachers)
+            .AsSplitQuery()
+            .AsQueryable();
+
+        if (!string.IsNullOrWhiteSpace(spec.Search))
+        {
+            var search = spec.Search.Trim();
+            query = query.Where(classroom => classroom.Code.Contains(search)
+                || classroom.Building.Contains(search)
+                || classroom.RoomNumber.Contains(search));
+        }
 
         if (spec.IsActive is not null) query = query.Where(c => c.IsActive == spec.IsActive);
         var totalCount = await query.CountAsync(cancellationToken);
