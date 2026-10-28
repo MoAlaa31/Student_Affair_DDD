@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Student_Affair_DDD.Modules.Students.Domain\Student_Affair_DDD.Modules.Students.Domain.csproj" />
-    <ProjectReference Include="..\Student_Affair_DDD.Contracts\Student_Affair_DDD.Contracts.csproj" />
     <ProjectReference Include="..\Student_Affair_DDD.Modules.Students.Shared\Student_Affair_DDD.Modules.Students.Shared.csproj" />
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>

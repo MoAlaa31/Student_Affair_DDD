@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
-using Student_Affair_DDD.Contracts;
 using Student_Affair_DDD.Modules.Students.Application.Services;
 using Student_Affair_DDD.Modules.Students.Shared.DTOs;
 

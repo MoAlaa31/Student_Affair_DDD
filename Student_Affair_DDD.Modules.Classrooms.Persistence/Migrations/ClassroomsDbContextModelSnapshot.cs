@@ -61,6 +61,57 @@ namespace Student_Affair_DDD.Modules.Classrooms.Persistence.Migrations
 
                     b.ToTable("Classrooms", (string)null);
                 });
+
+            modelBuilder.Entity("Student_Affair_DDD.Modules.Classrooms.Domain.ClassroomStudent", b =>
+                {
+                    b.Property<int>("ClassroomId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("StudentId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("ClassroomId", "StudentId");
+
+                    b.ToTable("ClassroomStudents", (string)null);
+                });
+
+            modelBuilder.Entity("Student_Affair_DDD.Modules.Classrooms.Domain.ClassroomTeacher", b =>
+                {
+                    b.Property<int>("ClassroomId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("TeacherId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("ClassroomId", "TeacherId");
+
+                    b.ToTable("ClassroomTeachers", (string)null);
+                });
+
+            modelBuilder.Entity("Student_Affair_DDD.Modules.Classrooms.Domain.ClassroomStudent", b =>
+                {
+                    b.HasOne("Student_Affair_DDD.Modules.Classrooms.Domain.Classroom", null)
+                        .WithMany("Students")
+                        .HasForeignKey("ClassroomId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Student_Affair_DDD.Modules.Classrooms.Domain.ClassroomTeacher", b =>
+                {
+                    b.HasOne("Student_Affair_DDD.Modules.Classrooms.Domain.Classroom", null)
+                        .WithMany("Teachers")
+                        .HasForeignKey("ClassroomId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Student_Affair_DDD.Modules.Classrooms.Domain.Classroom", b =>
+                {
+                    b.Navigation("Students");
+
+                    b.Navigation("Teachers");
+                });
 #pragma warning restore 612, 618
         }
     }

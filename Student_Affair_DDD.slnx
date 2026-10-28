@@ -21,7 +21,6 @@
     <Project Path="Student_Affair_DDD.Modules.Teachers.Shared/Student_Affair_DDD.Modules.Teachers.Shared.csproj" />
     <Project Path="Student_Affair_DDD.Modules.Teachers.Web/Student_Affair_DDD.Modules.Teachers.Web.csproj" />
   </Folder>
-  <Project Path="Student_Affair_DDD.Contracts/Student_Affair_DDD.Contracts.csproj" />
   <Project Path="Student_Affair_DDD.Host/Student_Affair_DDD.Host.csproj" />
   <Project Path="Student_Affair_DDD.Web.Client/Student_Affair_DDD.Web.Client.csproj" />
 </Solution>

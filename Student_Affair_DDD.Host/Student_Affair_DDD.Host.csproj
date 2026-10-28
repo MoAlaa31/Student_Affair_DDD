@@ -26,7 +26,6 @@
     <ProjectReference Include="..\Student_Affair_DDD.Modules.Teachers.Application\Student_Affair_DDD.Modules.Teachers.Application.csproj" />
     <ProjectReference Include="..\Student_Affair_DDD.Modules.Teachers.Persistence\Student_Affair_DDD.Modules.Teachers.Persistence.csproj" />
     <ProjectReference Include="..\Student_Affair_DDD.Modules.Teachers.Web\Student_Affair_DDD.Modules.Teachers.Web.csproj" />
-    <ProjectReference Include="..\Student_Affair_DDD.Contracts\Student_Affair_DDD.Contracts.csproj" />
   </ItemGroup>
 
 </Project>
