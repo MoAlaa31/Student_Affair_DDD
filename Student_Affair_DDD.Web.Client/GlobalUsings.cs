@@ -9,3 +9,5 @@ global using Student_Affair_DDD.Modules.Students.Shared.DTOs;
 global using Student_Affair_DDD.Modules.Teachers.Shared.Abstractions;
 global using Student_Affair_DDD.Modules.Teachers.Shared.DTOs;
 global using Student_Affair_DDD.Web.Client.Models;
+global using Student_Affair_DDD.Web.Client;
+

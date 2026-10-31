@@ -22,14 +22,6 @@ internal sealed class ClassroomsRepository(ClassroomsDbContext db) : IClassroomR
             .AsSplitQuery()
             .AsQueryable();
 
-        if (!string.IsNullOrWhiteSpace(spec.Search))
-        {
-            var search = spec.Search.Trim();
-            query = query.Where(classroom => classroom.Code.Contains(search)
-                || classroom.Building.Contains(search)
-                || classroom.RoomNumber.Contains(search));
-        }
-
         if (spec.IsActive is not null) query = query.Where(c => c.IsActive == spec.IsActive);
         var totalCount = await query.CountAsync(cancellationToken);
         query = spec.SortBy?.ToLowerInvariant() switch

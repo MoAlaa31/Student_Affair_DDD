@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Components;
-
 namespace BlazorAppServer;
 
 public partial class Students
@@ -9,7 +8,7 @@ public partial class Students
 
     public StudentFormModel student = new();
     public List<StudentDto> students = [];
-    public Student_Affair_DDD.Web.Client.Modal? modalComponent;
+    public Modal? modalComponent;
 
     private StudentDto? pendingDeleteStudent;
     private string? errorMessage;

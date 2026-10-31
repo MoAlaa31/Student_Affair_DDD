@@ -16,7 +16,8 @@ public sealed class StudentFormModel : IValidatableObject
     [RegularExpression(@"^[A-Za-z0-9\-]+$", ErrorMessage = "Only letters, digits and dashes are allowed.")]
     public string StudentNumber { get; set; } = string.Empty;
 
-    [Required, StringLength(20, MinimumLength = 5)]
+    [Required]
+    [RegularExpression(@"^\d{14}$", ErrorMessage = "National ID must be exactly 14 digits.")]
     public string NationalId { get; set; } = string.Empty;
 
     [Required, EmailAddress, StringLength(200)]
